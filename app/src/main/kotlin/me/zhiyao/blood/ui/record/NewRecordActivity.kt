@@ -35,9 +35,6 @@ class NewRecordActivity : BaseActivity() {
     private val binding by viewBinding(ActivityNewRecordBinding::inflate)
     private val viewModel by viewModels<NewRecordViewModel>()
 
-    private var datePickerFragment: DatePickerFragment? = null
-    private var timePickerFragment: TimePickerFragment? = null
-
     private val calendar: Calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,8 +57,8 @@ class NewRecordActivity : BaseActivity() {
         )
 
         binding.actvMeasureDate.setOnClickListener {
-            datePickerFragment = DatePickerFragment(calendar)
-            datePickerFragment!!.setOnDateSetListener { year, month, dayOfMonth ->
+            val datePickerFragment = DatePickerFragment(calendar)
+            datePickerFragment.setOnDateSetListener { year, month, dayOfMonth ->
                 binding.actvMeasureDate.setText(
                     getString(
                         R.string.new_record_measure_date,
@@ -75,7 +72,7 @@ class NewRecordActivity : BaseActivity() {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             }
 
-            datePickerFragment!!.show(supportFragmentManager, TAG_DATE_PICKER)
+            datePickerFragment.show(supportFragmentManager, TAG_DATE_PICKER)
         }
 
         binding.actvMeasureTime.setText(
@@ -87,8 +84,8 @@ class NewRecordActivity : BaseActivity() {
         )
 
         binding.actvMeasureTime.setOnClickListener {
-            timePickerFragment = TimePickerFragment(calendar)
-            timePickerFragment!!.setOnTimeSetListener { hourOfDay, minute ->
+            val timePickerFragment = TimePickerFragment(calendar)
+            timePickerFragment.setOnTimeSetListener { hourOfDay, minute ->
                 binding.actvMeasureTime.setText(
                     getString(
                         R.string.new_record_measure_time,
@@ -100,7 +97,7 @@ class NewRecordActivity : BaseActivity() {
                 calendar.set(Calendar.MINUTE, minute)
             }
 
-            timePickerFragment!!.show(supportFragmentManager, TAG_TIME_PICKER)
+            timePickerFragment.show(supportFragmentManager, TAG_TIME_PICKER)
         }
 
         binding.tietPul.editorActions()
@@ -140,19 +137,5 @@ class NewRecordActivity : BaseActivity() {
 
         viewModel.insertBloodPressure(bloodPressure)
         finish()
-    }
-
-    override fun onDestroy() {
-        datePickerFragment?.let {
-            it.dismiss()
-            datePickerFragment = null
-        }
-
-        timePickerFragment?.let {
-            it.dismiss()
-            timePickerFragment = null
-        }
-
-        super.onDestroy()
     }
 }
