@@ -2,8 +2,10 @@ package me.zhiyao.blood.ui.record
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import com.jakewharton.rxbinding4.view.clicks
+import com.jakewharton.rxbinding4.widget.editorActions
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.blood.R
 import me.zhiyao.blood.data.db.model.BloodPressure
@@ -100,6 +102,13 @@ class NewRecordActivity : BaseActivity() {
 
             timePickerFragment.show(supportFragmentManager, TAG_TIME_PICKER)
         }
+
+        binding.tietPul.editorActions()
+            .filter { it == EditorInfo.IME_ACTION_DONE }
+            .throttleFirst(1, TimeUnit.SECONDS)
+            .subscribe {
+                attemptInsertBloodPressureRecord()
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
