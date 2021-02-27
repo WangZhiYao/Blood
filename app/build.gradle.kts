@@ -50,8 +50,9 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.6")
 
-    implementation(kotlin("stdlib-jdk8:1.4.30"))
+    implementation(kotlin("stdlib-jdk8:1.4.31"))
 
     // AndroidX
     implementation("androidx.core:core-ktx:1.3.2")
@@ -75,15 +76,9 @@ dependencies {
     implementation("androidx.room:room-ktx:2.3.0-beta02")
     kapt("androidx.room:room-compiler:2.3.0-beta02")
 
-    // Retrofit2
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation("com.squareup.okhttp3:okhttp:4.9.1")
-    implementation("com.squareup.moshi:moshi-kotlin:1.11.0")
-
     // Paging3
     implementation("androidx.paging:paging-runtime-ktx:3.0.0-beta01")
 
-    // WorkManager
-    implementation("androidx.work:work-runtime-ktx:2.5.0")
+    // RxBinding
+    implementation("com.jakewharton.rxbinding4:rxbinding-material:4.0.0")
 }

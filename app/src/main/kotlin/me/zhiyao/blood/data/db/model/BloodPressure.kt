@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
  * @author WangZhiYao
  * @date 2021/2/25
  */
-@Entity(tableName = "t_blood_pressure")
+@Entity(tableName = "t_blood_pressure_record")
 data class BloodPressure(
 
     /**
@@ -47,9 +47,5 @@ data class BloodPressure(
     @ColumnInfo(name = "id")
     var id: Long = 0
 
-    /**
-     * 上传状态
-     */
-    var status: Int = 0
 }
 

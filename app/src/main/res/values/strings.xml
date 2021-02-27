@@ -1,13 +1,35 @@
 <resources>
-    <string name="app_name">blood</string>
+    <string name="app_name">血压记录</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="nav_header_title">写给老太太</string>
+    <string name="nav_header_subtitle">注意血压，每天要按时量按时记录</string>
 
     <string name="nav_menu_record">记录</string>
-    <string name="nav_menu_statistics">统计</string>
+
+    <string name="blood_pressure_sys">收缩压</string>
+    <string name="blood_pressure_dia">舒张压</string>
+    <string name="blood_pressure_pul">脉搏</string>
+    <string name="blood_pressure_level_wrong">数据异常</string>
+    <string name="blood_pressure_level_low">低血压</string>
+    <string name="blood_pressure_level_normal_low">正常低值</string>
+    <string name="blood_pressure_level_normal">正常血压</string>
+    <string name="blood_pressure_level_normal_high">正常高值</string>
+    <string name="blood_pressure_level_high_1">一级高血压</string>
+    <string name="blood_pressure_level_high_2">二级高血压</string>
+    <string name="blood_pressure_level_high_3">三级高血压</string>
+
+    <!-- RecordFragment -->
+    <string name="record_delete_message">记录已删除</string>
+    <string name="record_delete_revoke">撤销删除</string>
+
+    <!-- NewRecordActivity -->
+    <string name="new_record_label">新建记录</string>
+    <string name="new_record_complete">保存</string>
+    <string name="new_record_measure_date_hint">测量日期</string>
+    <string name="new_record_measure_time_hint">测量时间</string>
+    <string name="new_record_measure_date">%s年%s月%s日</string>
+    <string name="new_record_measure_time">%s时%s分</string>
+    <string name="new_record_params_required">收缩压、舒张压、脉搏为必填项</string>
 
 </resources>

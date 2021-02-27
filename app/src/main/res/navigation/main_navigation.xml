@@ -7,14 +7,8 @@
 
     <fragment
         android:id="@+id/nav_record"
-        android:name="me.zhiyao.blood.ui.record.RecordFragment"
+        android:name="me.zhiyao.blood.ui.main.record.RecordFragment"
         android:label="@string/nav_menu_record"
         tools:layout="@layout/fragment_record" />
-
-    <fragment
-        android:id="@+id/nav_statistics"
-        android:name="me.zhiyao.blood.ui.statistics.StatisticsFragment"
-        android:label="@string/nav_menu_statistics"
-        tools:layout="@layout/fragment_statistics" />
 
 </navigation>

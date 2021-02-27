@@ -30,4 +30,5 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideBloodPressureDao(appDatabase: AppDatabase) = appDatabase.bloodPressureDao()
+
 }
