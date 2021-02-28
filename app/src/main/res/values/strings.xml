@@ -3,9 +3,10 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">写给老太太</string>
-    <string name="nav_header_subtitle">注意血压，每天要按时量按时记录</string>
+    <string name="nav_header_subtitle">注意血压，每天要按时测量按时记录</string>
 
     <string name="nav_menu_record">记录</string>
+    <string name="nav_menu_statistic">统计</string>
 
     <string name="blood_pressure_sys">收缩压</string>
     <string name="blood_pressure_dia">舒张压</string>
@@ -31,5 +32,8 @@
     <string name="new_record_measure_date">%s年%s月%s日</string>
     <string name="new_record_measure_time">%s时%s分</string>
     <string name="new_record_params_required">收缩压、舒张压、脉搏为必填项</string>
+
+    <!-- StatisticFragment -->
+    <string name="statistic_chart_title">7日数据平均值</string>
 
 </resources>

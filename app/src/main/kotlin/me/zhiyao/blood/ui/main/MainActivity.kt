@@ -45,7 +45,7 @@ class MainActivity : BaseActivity() {
         navController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_record
+                R.id.nav_record, R.id.nav_statistic
             ), binding.drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

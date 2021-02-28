@@ -21,6 +21,12 @@ interface BloodPressureDao {
     @Query("SELECT * FROM t_blood_pressure_record ORDER BY measure_time DESC")
     fun queryBloodPressureRecordList(): PagingSource<Int, BloodPressure>
 
+    @Query("SELECT * FROM t_blood_pressure_record WHERE measure_time >= :startTime AND measure_time < :endTime ORDER BY measure_time ASC")
+    suspend fun queryBloodPressureRecordList(
+        startTime: Long,
+        endTime: Long
+    ): List<BloodPressure>
+
     @Delete
     suspend fun delete(vararg bloodPressure: BloodPressure)
 }

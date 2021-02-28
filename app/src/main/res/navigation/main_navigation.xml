@@ -11,4 +11,10 @@
         android:label="@string/nav_menu_record"
         tools:layout="@layout/fragment_record" />
 
+    <fragment
+        android:id="@+id/nav_statistic"
+        android:name="me.zhiyao.blood.ui.main.statistics.StatisticFragment"
+        android:label="@string/nav_menu_statistic"
+        tools:layout="@layout/fragment_statistic" />
+
 </navigation>

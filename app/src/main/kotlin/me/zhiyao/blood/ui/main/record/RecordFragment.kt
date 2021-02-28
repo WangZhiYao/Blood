@@ -84,11 +84,13 @@ class RecordFragment : BaseFragment(R.layout.fragment_record), OnRecordClickList
     }
 
     private fun initData() {
-        viewModel.bloodPressureRecordList.observe(viewLifecycleOwner, {
-            viewLifecycleOwner.lifecycleScope.launch {
-                recordAdapter.submitData(it)
-            }
-        })
+        binding.rvBloodPressureRecord.postDelayed({
+            viewModel.bloodPressureRecordList.observe(viewLifecycleOwner, {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    recordAdapter.submitData(it)
+                }
+            })
+        }, 250)
     }
 
     override fun onRecordClicked(bloodPressure: BloodPressure) {
@@ -96,6 +98,7 @@ class RecordFragment : BaseFragment(R.layout.fragment_record), OnRecordClickList
     }
 
     override fun onDestroyView() {
+        binding.rvBloodPressureRecord.adapter = null
         _binding = null
         super.onDestroyView()
     }

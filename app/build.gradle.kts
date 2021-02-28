@@ -12,8 +12,8 @@ android {
         applicationId = "me.zhiyao.blood"
         minSdkVersion(21)
         targetSdkVersion(30)
-        versionCode = 11
-        versionName = "1.1"
+        versionCode = 12
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -81,4 +81,7 @@ dependencies {
 
     // RxBinding
     implementation("com.jakewharton.rxbinding4:rxbinding-material:4.0.0")
+
+    // AAChartModel
+    implementation("com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT")
 }

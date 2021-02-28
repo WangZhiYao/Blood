@@ -21,7 +21,8 @@ class RecordViewHolder(
         binding.tvDia.text = bloodPressure.dia.toString()
         binding.tvPul.text = bloodPressure.pul.toString()
 
-        binding.tvMeasureTime.text = TimeUtils.timestamp2Str(bloodPressure.measureTime)
+        binding.tvMeasureTime.text =
+            TimeUtils.timestamp2Str(TimeUtils.YYYY_MM_DD_E_HH_MM, bloodPressure.measureTime)
 
         val sysLevel = BloodPressureLevel.values().find {
             it.minSys <= bloodPressure.sys && it.maxSys >= bloodPressure.sys
