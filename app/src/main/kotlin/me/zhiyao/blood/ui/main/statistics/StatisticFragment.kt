@@ -7,9 +7,11 @@ import com.github.aachartmodel.aainfographics.aachartcreator.*
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.blood.R
 import me.zhiyao.blood.constants.BloodPressureType
+import me.zhiyao.blood.data.model.StatisticItem
 import me.zhiyao.blood.data.model.StatisticResult
 import me.zhiyao.blood.databinding.FragmentStatisticBinding
 import me.zhiyao.blood.ui.base.BaseFragment
+import me.zhiyao.blood.util.TimeUtils
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -39,12 +41,22 @@ class StatisticFragment : BaseFragment(R.layout.fragment_statistic) {
         calendar.add(Calendar.DAY_OF_MONTH, -7)
         viewModel.getDailyStatisticResult(calendar.timeInMillis).observe(viewLifecycleOwner, {
             if (it.statisticItem.isNotEmpty()) {
-                binding.aaChartView.aa_drawChartWithChartModel(configureDailyChart(it))
+                binding.aaChartView.aa_drawChartWithChartModel(configureDailyChart(it, false))
+            } else {
+                binding.aaChartView.aa_drawChartWithChartModel(
+                    configureDailyChart(
+                        makeExampleDailyChartData(),
+                        true
+                    )
+                )
             }
         })
     }
 
-    private fun configureDailyChart(statisticResult: StatisticResult): AAChartModel {
+    private fun configureDailyChart(
+        statisticResult: StatisticResult,
+        example: Boolean
+    ): AAChartModel {
         val dataList = ArrayList<AASeriesElement>()
         statisticResult.statisticItem.forEach {
             dataList.add(
@@ -62,15 +74,45 @@ class StatisticFragment : BaseFragment(R.layout.fragment_statistic) {
 
         return AAChartModel()
             .chartType(AAChartType.Spline) //图形类型
-            .animationType(AAChartAnimationType.Linear) //图形渲染动画类型为"bounce"
-            .title(getString(R.string.statistic_chart_title)) //图形标题
-            .subtitle("${statisticResult.dateList[0]} - ${statisticResult.dateList[6]}") //图形副标题
+            .animationType(AAChartAnimationType.Linear) //图形渲染动画类型
+            .title(if (example) getString(R.string.statistic_chart_title_example) else getString(R.string.statistic_chart_title)) //图形标题
+            .subtitle("${statisticResult.dateList[0]} - ${statisticResult.dateList[statisticResult.dateList.size - 1]}") //图形副标题
             .dataLabelsEnabled(false) //是否显示数字
             .categories(statisticResult.dateList.toTypedArray())
             .markerSymbolStyle(AAChartSymbolStyleType.BorderBlank) //折线连接点样式
             .markerSymbol(AAChartSymbolType.Circle)
             .markerRadius(5f) //折线连接点半径长度,为0时相当于没有折线连接点
             .series(dataList.toTypedArray())
+    }
+
+    private fun makeExampleDailyChartData(): StatisticResult {
+        val dateList = ArrayList<String>()
+        val dataList = ArrayList<StatisticItem>()
+
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_MONTH, -7)
+
+        val r = Random()
+        while (dateList.size < 7) {
+            dateList.add(TimeUtils.timestamp2Str(TimeUtils.YYYY_MM_DD, calendar.timeInMillis))
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        val sysList = ArrayList<Int>()
+        val diaList = ArrayList<Int>()
+        val pulList = ArrayList<Int>()
+
+        for (i in 0 until 7) {
+            sysList.add(r.nextInt(100) + 100)
+            diaList.add(r.nextInt(50) + 50)
+            pulList.add(r.nextInt(40) + 60)
+        }
+
+        dataList.add(StatisticItem(BloodPressureType.SYS, sysList))
+        dataList.add(StatisticItem(BloodPressureType.DIA, diaList))
+        dataList.add(StatisticItem(BloodPressureType.PUL, pulList))
+
+        return StatisticResult(dateList, dataList)
     }
 
     override fun onDestroyView() {

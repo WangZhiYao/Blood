@@ -35,5 +35,6 @@
 
     <!-- StatisticFragment -->
     <string name="statistic_chart_title">7日数据平均值</string>
+    <string name="statistic_chart_title_example">7日数据平均值 - 示例数据</string>
 
 </resources>
