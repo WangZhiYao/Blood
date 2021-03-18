@@ -37,23 +37,26 @@ class StatisticFragment : BaseFragment(R.layout.fragment_statistic) {
     }
 
     private fun initData() {
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_MONTH, -7)
-        viewModel.getDailyStatisticResult(calendar.timeInMillis).observe(viewLifecycleOwner, {
-            if (it.statisticItem.isNotEmpty()) {
-                binding.aaChartView.aa_drawChartWithChartModel(configureDailyChart(it, false))
-            } else {
-                binding.aaChartView.aa_drawChartWithChartModel(
-                    configureDailyChart(
-                        makeExampleDailyChartData(),
-                        true
-                    )
-                )
-            }
-        })
+        get7DayAverage()
     }
 
-    private fun configureDailyChart(
+    private fun get7DayAverage() {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_MONTH, -7)
+        viewModel.getDailyAverageStatisticResult(calendar.timeInMillis)
+            .observe(viewLifecycleOwner, { statisticResult ->
+                statisticResult.statisticItem.isNotEmpty().run {
+                    binding.aaChartView.aa_drawChartWithChartModel(
+                        configureDailyAverageChart(
+                            if (this) statisticResult else makeExampleDailyAverageChartData(),
+                            !this
+                        )
+                    )
+                }
+            })
+    }
+
+    private fun configureDailyAverageChart(
         statisticResult: StatisticResult,
         example: Boolean
     ): AAChartModel {
@@ -72,11 +75,17 @@ class StatisticFragment : BaseFragment(R.layout.fragment_statistic) {
             )
         }
 
+        val title =
+            if (example) getString(R.string.statistic_chart_title_example)
+            else getString(R.string.statistic_chart_title)
+        val dateList = statisticResult.dateList
+        val subtitle = "${dateList[0]} - ${dateList[dateList.size - 1]}"
+
         return AAChartModel()
             .chartType(AAChartType.Spline) //图形类型
             .animationType(AAChartAnimationType.Linear) //图形渲染动画类型
-            .title(if (example) getString(R.string.statistic_chart_title_example) else getString(R.string.statistic_chart_title)) //图形标题
-            .subtitle("${statisticResult.dateList[0]} - ${statisticResult.dateList[statisticResult.dateList.size - 1]}") //图形副标题
+            .title(title) //图形标题
+            .subtitle(subtitle) //图形副标题
             .dataLabelsEnabled(false) //是否显示数字
             .categories(statisticResult.dateList.toTypedArray())
             .markerSymbolStyle(AAChartSymbolStyleType.BorderBlank) //折线连接点样式
@@ -85,7 +94,7 @@ class StatisticFragment : BaseFragment(R.layout.fragment_statistic) {
             .series(dataList.toTypedArray())
     }
 
-    private fun makeExampleDailyChartData(): StatisticResult {
+    private fun makeExampleDailyAverageChartData(): StatisticResult {
         val dateList = ArrayList<String>()
         val dataList = ArrayList<StatisticItem>()
 
